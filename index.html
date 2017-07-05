@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>React Slider Example</title>
+
+    <script src="react_src/react.js"></script>
+    <script src="react_src/react-dom.js"></script>
+    <script src="react_src/create-react-class.js"></script>
+    <script src="react_src/prop-types.js"></script>
+    <script src="react-slider.js"></script>
+
+    <style>
+        body {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        .horizontal-slider {
+            width: 100%;
+            max-width: 500px;
+            height: 50px;
+            border: 1px solid grey;
+        }
+
+        .vertical-slider {
+            height: 225px;
+            width: 150px;
+            border: 1px solid grey;
+        }
+
+        .handle {
+            background-image: url('img/facade_blind_handle.png');
+            background-repeat: no-repeat;
+            color: black;
+            cursor: pointer;
+        }
+
+        .handle:hover {
+            background-image: url('img/facade_blind_handle_higlight.png');
+        }
+
+        .handle.active {
+        }
+
+        .bar {
+            position: relative;
+        }
+
+        .bar.bar-0 {
+            background-image: url('img/facade_blind_lamels.png');
+            background-repeat: no-repeat;
+            margin-bottom: 0px;
+        }
+
+        .bar.bar-2 {
+        }
+
+        .horizontal-slider .bar {
+            top: 20px;
+            height: 10px;
+        }
+
+        .horizontal-slider .handle {
+            top: 1px;
+            width: 50px;
+            height: 48px;
+            line-height: 48px;
+        }
+
+        .vertical-slider .handle {
+            left: 1px;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .vertical-slider .bar {
+            width: 100%;
+        }
+
+        #horizontal-0,
+        #horizontal-1, #horizontal-2, #horizontal-3,
+
+        #horizontal-2 .bar.bar-2 {
+            background: #ddd;
+        }
+
+
+        .curtains_container > div{
+            position: absolute;
+        }
+
+    </style>
+</head>
+<body>
+<div id="horizontal-0"></div>
+<div id="horizontal-1"></div>
+<div id="horizontal-2"></div>
+<div id="horizontal-3"></div>
+
+
+
+<div class="curtains_container">
+    <div id="vertical"></div>
+    <div id="vertical-2"></div>
+</div>
+
+<script>
+    var ReactSlider = React.createFactory(ReactSlider);
+
+    function map(v, f, context) {
+        return (v && v.map) ? v.map(f, context) : f.call(context, v, 0);
+    }
+
+    var Demo = React.createFactory(createReactClass({
+        displayName: 'Demo',
+
+        getInitialState: function () {
+            return {value: this.props.defaultValue}
+        },
+
+        onChange: function (value) {
+            this.setState({value: value});
+        },
+
+        render: function () {
+            return ReactSlider(
+                React.__spread({
+                    className: this.props.orientation + '-slider',
+                    pearling: true,
+                    minDistance: 10,
+                    value: this.state.value,
+                    onChange: this.onChange
+                }, this.props),
+                map(this.state.value, function (value, i) {
+                    return React.createElement('div', {key: i}, value);
+                })
+            );
+        }
+    }));
+
+/*    ReactDOM.render(Demo({defaultValue: 0, orientation: 'horizontal'}), document.getElementById('horizontal-1'));
+
+    ReactDOM.render(Demo({
+        defaultValue: [0, 100],
+        orientation: 'horizontal',
+        withBars: true
+    }), document.getElementById('horizontal-2'));
+
+    ReactDOM.render(Demo({
+        defaultValue: [0, 50, 100],
+        orientation: 'horizontal',
+        withBars: true
+    }), document.getElementById('horizontal-3'));*/
+
+    ReactDOM.render(Demo({
+        defaultValue: [0],
+        orientation: 'vertical',
+        withBars: true,
+    }), document.getElementById('vertical-2'));
+
+/*
+    ReactDOM.render(Demo({
+        defaultValue: [0],
+        orientation: 'vertical',
+        withBars: true,
+        disabled: true,
+        value: 50
+    }), document.getElementById('vertical'));
+*/
+
+
+</script>
+</body>
+</html>
