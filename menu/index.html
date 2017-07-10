@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Create a New Pen</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+  <script>
+      setMenu = function(){
+          var last_item = $('.menu>a:last-child');
+          console.log(last_item.position().top);
+          if (last_item.position().top>30 ){
+              $('.item-right').show()
+          }
+          else {
+              $('.item-right').hide()
+          }
+      };
+
+      var menuTimer;
+
+      $(window).on("orientationchange load resize", function () {
+          if (menuTimer) {
+              clearTimeout(menuTimer)
+          }
+          setTimeout(setMenu, 500);
+      });
+  </script>
+</head>
+
+<body>
+  <div class="nav">
+  <div class="item-left">Logo</div>
+  <div class="item-right">Search & Dropdown</div>
+    <div class="menu">
+      <a>-------Menu Item 1-------</a>
+      <a>-------Menu Item 2-------</a>
+      <a>-------Menu Item 3-------</a>
+      <a>-------Menu Item 4-------</a>
+      <a>-------Menu Item 5-------</a>
+    </div>
+</div>
+  
+  
+</body>
+</html>
